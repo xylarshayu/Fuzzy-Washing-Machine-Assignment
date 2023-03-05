@@ -14,7 +14,7 @@ cloth_volume | ["small", "medium", "large"] | [0, 100]
 OUTPUT VARIABLE |  MEMBERSHIP VALUE |  MEMBERSHIP RANGE
 ---- | ---- | ----
 washing_time | ["very short", "short", "medium", "long", "very long"] | [0, 100]
-washing_speed | ["very slow", "slow", "medium", "fast", "very fast] | [0, 1200]
+washing_speed | ["very slow", "slow", "medium", "fast", "very fast"] | [0, 1200]
 water_intake | ["little", "normal", "a lot"] | [0, 100]
 water_temperature | ["low", "normal", "high"] | [0, 80]
 
