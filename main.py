@@ -38,9 +38,19 @@ washing_speed = FuzzyVar(memberships=('very slow', 'slow', 'medium', 'fast', 've
 water_intake = FuzzyVar(memberships=('little', 'normal', 'a lot'), isInput=False)
 water_temperature = FuzzyVar(memberships=('low', 'normal', 'high'), range=(0, 80), isInput=False)
 
+# Defuzzification using Centroid Method
+def defuzzify(output_var, memberships):
+  num = 0
+  den = 0
+  for mem in output_var.memberships:
+    a, b, c = output_var.mfs[mem]
+    centroid = (a + b + c) / 3
+    num += memberships[mem] * centroid
+    den += memberships[mem]
+  return num / den if den != 0 else 0
+
 # Fuzzy Inference System
 def fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_value, cloth_volume_value):
-
   # Computing membership functions of each
   dirtiness_mf = { mem: dirtiness.compute_membership(mem, dirtiness_value) for mem in dirtiness.memberships }
   typeof_dirt_mf = { mem: typeof_dirt.compute_membership(mem, typeof_dirt_value) for mem in typeof_dirt.memberships }
@@ -55,7 +65,7 @@ def fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_valu
   }
 
   # Computing defuzzified values for output variables
-  washing_speed_defuzzified = defuzzify(washing_speed, washing_speed_mf) #TODO
+  washing_speed_defuzzified = defuzzify(washing_speed, washing_speed_mf)
 
   # Return output variables
   return {
