@@ -24,8 +24,20 @@ class FuzzyVar:
     if (value < self.range[0]): return (int(a < self.range[0])) # If value < range, membership is 0 except for first member
     if (value > self.range[1]): return (int(c > self.range[1])) # If value > range, membership is 0 except for last member
     return max(0, min((value - a) / (b - a), (c - value) / (c - b)))
+  
+  
 
+# Input variables
 dirtiness = FuzzyVar()
-print(dirtiness.compute_membership('small', 40))
+typeof_dirt = FuzzyVar(memberships=('not greasy', 'medium', 'greasy'))
+typeof_fabric = FuzzyVar(memberships=('silk', 'woolen', 'cotton'))
+cloth_volume = FuzzyVar()
+
+# Output variables
+washing_time = FuzzyVar(memberships=('very short', 'short', 'medium', 'long', 'very long'), isInput=False)
+washing_speed = FuzzyVar(memberships=('very slow', 'slow', 'medium', 'fast', 'very fast'), range=(0, 1200), isInput=False)
+water_intake = FuzzyVar(memberships=('little', 'normal', 'a lot'), isInput=False)
+water_temperature = FuzzyVar(memberships=('low', 'normal', 'high'), range=(0, 80), isInput=False)
+
 
 
