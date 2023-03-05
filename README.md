@@ -1,6 +1,6 @@
 # Fuzzy-Washing-Machine-Assignment
-Basic college assignment for fuzzy walking machine.
-- Ayush Wardhan 19103202
+Basic college assignment for fuzzy washing machine.
+By Ayush Wardhan 19103202
 
 ## Tables of Input & Output Variables
 
