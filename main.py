@@ -42,7 +42,7 @@ water_temperature = FuzzyVar(memberships=('low', 'normal', 'high'), range=(0, 80
 def defuzzify(output_var, memberships):
   num = 0
   den = 0
-  for mem in output_var.memberships:
+  for mem in memberships:
     a, b, c = output_var.mfs[mem]
     centroid = (a + b + c) / 3
     num += memberships[mem] * centroid
@@ -64,6 +64,8 @@ def fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_valu
     'medium': min(dirtiness_mf['large'], typeof_dirt_mf['not greasy'], typeof_fabric_mf['woolen'], cloth_volume_mf['medium'])
   }
 
+  print(washing_speed_mf)
+
   # Computing defuzzified values for output variables
   washing_speed_defuzzified = defuzzify(washing_speed, washing_speed_mf)
 
@@ -75,7 +77,12 @@ def fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_valu
     'water_temperature': 'NA' # Rules unavailable
   }
 
+dirtiness_value = float(input("Enter dirtiness value (0-100): "))
+typeof_dirt_value = float(input("Enter type of dirt value (0-100): "))
+typeof_fabric_value = float(input("Enter type of fabric value (0-100): "))
+cloth_volume_value = float(input("Enter cloth volume value (0-100): "))
 
+print(fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_value, cloth_volume_value))
 
 
 
