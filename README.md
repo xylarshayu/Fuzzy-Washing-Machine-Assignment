@@ -23,7 +23,7 @@ water_temperature | ["low", "normal", "high"] | [0, 80]
 1. If (dirtiness is "small") and (typeof_dirt is "not greasy") and (typeof_fabric is "silk") and (cloth_volume is "small") then (washing_speed is "very slow")
 2. If (dirtiness is "large") and (typeof_dirt is "greasy") and (typeof_fabric is "cotton") and (cloth_volume is Large ) then (washing_speed is "very fast")
 3. If (dirtiness is "large") and (typeof_dirt is "not greasy") and (typeof_fabric is "woolen") and
-(cloth_volume is "medium") then (washing_speed is "medium")
+(cloth_volume is "medium") then (washing_speed is "medium") <br>
 _Rest are assumed_
 3. If (dirtiness is "large") and (typeof_dirt is "greasy") and (typeof_fabric is "cotton") and (cloth_volume is "large") then (washing_time is "very long", water_intake is "a lot", water_temperature is "high")
 4. If (dirtiness is "medium") and (typeof_dirt is "medium") and (typeof_fabric is "woolen") and (cloth_volume is "medium") then (washing_time is "medium", water_intake is "normal", water_temperature is "normal")
