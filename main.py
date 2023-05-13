@@ -64,17 +64,37 @@ def fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_valu
     'medium': min(dirtiness_mf['large'], typeof_dirt_mf['not greasy'], typeof_fabric_mf['woolen'], cloth_volume_mf['medium'])
   }
 
-  print(washing_speed_mf)
+  # Some assumed rules based on common sense
+  washing_time_mf = {
+    'short': min(dirtiness_mf['small'], typeof_dirt_mf['not greasy'], typeof_fabric_mf['silk'], cloth_volume_mf['small']),
+    'very long': min(dirtiness_mf['large'], typeof_dirt_mf['greasy'], typeof_fabric_mf['cotton'], cloth_volume_mf['large']),
+    'medium': min(dirtiness_mf['medium'], typeof_dirt_mf['medium'], typeof_fabric_mf['woolen'], cloth_volume_mf['medium'])
+  }
+
+  water_intake_mf = {
+    'little': min(dirtiness_mf['small'], typeof_dirt_mf['not greasy'], typeof_fabric_mf['silk'], cloth_volume_mf['small']),
+    'a lot': min(dirtiness_mf['large'], typeof_dirt_mf['greasy'], typeof_fabric_mf['cotton'], cloth_volume_mf['large']),
+    'normal': min(dirtiness_mf['medium'], typeof_dirt_mf['medium'], typeof_fabric_mf['woolen'], cloth_volume_mf['medium'])
+  }
+
+  water_temperature_mf = {
+    'low': min(dirtiness_mf['small'], typeof_dirt_mf['not greasy'], typeof_fabric_mf['silk'], cloth_volume_mf['small']),
+    'high': min(dirtiness_mf['large'], typeof_dirt_mf['greasy'], typeof_fabric_mf['cotton'], cloth_volume_mf['large']),
+    'normal': min(dirtiness_mf['medium'], typeof_dirt_mf['medium'], typeof_fabric_mf['woolen'], cloth_volume_mf['medium'])
+  }
 
   # Computing defuzzified values for output variables
   washing_speed_defuzzified = defuzzify(washing_speed, washing_speed_mf)
+  washing_time_defuzzified = defuzzify(washing_time, washing_time_mf)
+  water_intake_defuzzified = defuzzify(water_intake, water_intake_mf)
+  water_temperature_defuzzified = defuzzify(water_temperature, water_temperature_mf)
 
   # Return output variables
   return {
-    'washing_time': 'NA', # Rules unavailable
+    'washing_time': washing_time_defuzzified,
     'washing_speed': washing_speed_defuzzified,
-    'water_intake': 'NA', # Rules unavailable
-    'water_temperature': 'NA' # Rules unavailable
+    'water_intake': water_intake_defuzzified,
+    'water_temperature': water_temperature_defuzzified
   }
 
 dirtiness_value = float(input("Enter dirtiness value (0-100): "))

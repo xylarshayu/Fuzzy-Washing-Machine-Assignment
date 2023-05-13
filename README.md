@@ -24,6 +24,9 @@ water_temperature | ["low", "normal", "high"] | [0, 80]
 2. If (dirtiness is "large") and (typeof_dirt is "greasy") and (typeof_fabric is "cotton") and (cloth_volume is Large ) then (washing_speed is "very fast")
 3. If (dirtiness is "large") and (typeof_dirt is "not greasy") and (typeof_fabric is "woolen") and
 (cloth_volume is "medium") then (washing_speed is "medium")
+3. If (dirtiness is "large") and (typeof_dirt is "greasy") and (typeof_fabric is "cotton") and (cloth_volume is "large") then (washing_time is "very long", water_intake is "a lot", water_temperature is "high")
+4. If (dirtiness is "medium") and (typeof_dirt is "medium") and (typeof_fabric is "woolen") and (cloth_volume is "medium") then (washing_time is "medium", water_intake is "normal", water_temperature is "normal")
+5. If (dirtiness is "small") and (typeof_dirt is "not greasy") and (typeof_fabric is "silk") and (cloth_volume is "small") then (washing_time is "short", water_intake is "little", water_temperature is "low")
 
 **Triangular Membership function to be assumed**
 
