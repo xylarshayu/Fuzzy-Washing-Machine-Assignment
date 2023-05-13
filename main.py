@@ -1,4 +1,3 @@
-# Fuzzy variable
 class FuzzyVar:
   def __init__(self, memberships = ('small', 'medium', 'large'), range = (0, 100), isInput = True):
     self.memberships = memberships
@@ -6,24 +5,31 @@ class FuzzyVar:
     self.isInput = isInput
     self.mfs = self.generate_mfs()
 
-  # Generate a, b, c of each member
   def generate_mfs(self):
     num_mem = len(self.memberships)
-    step = (self.range[1] - self.range[0]) / (num_mem - 1)
     mfs = {}
-    for i, mem in enumerate(self.memberships):
-      a = self.range[0] + step*(i-1)
-      b = self.range[0] + step*(i)
-      c = self.range[0] + step*(i + 1)
-      mfs[mem] = (a, b, c)
+    
+    if num_mem == 3:
+      mfs[self.memberships[0]] = (self.range[0], self.range[0], self.range[0] + self.range[1] / 3)
+      mfs[self.memberships[1]] = (self.range[0], self.range[0] + self.range[1] / 3, 2 * self.range[1] / 3)
+      mfs[self.memberships[2]] = (self.range[0] + self.range[1] / 3, 2 * self.range[1] / 3, self.range[1])
+    elif num_mem == 5:
+      mfs[self.memberships[0]] = (self.range[0], self.range[0] + self.range[1] / 10, self.range[1] * 3 / 10)
+      mfs[self.memberships[1]] = (self.range[0] + self.range[1] / 10, self.range[1] * 3 / 10, self.range[1] / 2)
+      mfs[self.memberships[2]] = (self.range[1] * 3 / 10, self.range[1] / 2, self.range[1] * 7 / 10)
+      mfs[self.memberships[3]] = (self.range[1] / 2, self.range[1] * 7 / 10, self.range[1] * 9 / 10)
+      mfs[self.memberships[4]] = (self.range[1] * 7 / 10, self.range[1] * 9 / 10, self.range[1])
+    else:
+      raise ValueError("This function supports either 3 or 5 memberships only")
+
     return mfs
-  
-  # Triangle membership function
+
   def compute_membership(self, mem, value):
     a, b, c = self.mfs[mem]
-    if (value < self.range[0]): return (int(a < self.range[0])) # If value < range, membership is 0 except for first member
-    if (value > self.range[1]): return (int(c > self.range[1])) # If value > range, membership is 0 except for last member
-    return max(0, min((value - a) / (b - a), (c - value) / (c - b)))
+    if (value < a): return 0
+    if (value > c): return 0
+    if (a <= value <= b): return (value - a) / (b - a)
+    if (b < value <= c): return (c - value) / (c - b)
 
 
 # Input variables
@@ -103,7 +109,3 @@ typeof_fabric_value = float(input("Enter type of fabric value (0-100): "))
 cloth_volume_value = float(input("Enter cloth volume value (0-100): "))
 
 print(fuzzy_washing_machine(dirtiness_value, typeof_dirt_value, typeof_fabric_value, cloth_volume_value))
-
-
-
-
