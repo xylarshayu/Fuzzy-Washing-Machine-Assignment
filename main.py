@@ -10,15 +10,15 @@ class FuzzyVar:
     mfs = {}
     
     if num_mem == 3:
-      mfs[self.memberships[0]] = (self.range[0], self.range[0], self.range[0] + self.range[1] / 3)
-      mfs[self.memberships[1]] = (self.range[0], self.range[0] + self.range[1] / 3, 2 * self.range[1] / 3)
-      mfs[self.memberships[2]] = (self.range[0] + self.range[1] / 3, 2 * self.range[1] / 3, self.range[1])
+      mfs[self.memberships[0]] = (self.range[0], self.range[0], self.range[1] / 2)
+      mfs[self.memberships[1]] = (self.range[0], self.range[1] / 2, self.range[1])
+      mfs[self.memberships[2]] = (self.range[1] / 2, self.range[1], self.range[1])
     elif num_mem == 5:
-      mfs[self.memberships[0]] = (self.range[0], self.range[0] + self.range[1] / 10, self.range[1] * 3 / 10)
-      mfs[self.memberships[1]] = (self.range[0] + self.range[1] / 10, self.range[1] * 3 / 10, self.range[1] / 2)
-      mfs[self.memberships[2]] = (self.range[1] * 3 / 10, self.range[1] / 2, self.range[1] * 7 / 10)
-      mfs[self.memberships[3]] = (self.range[1] / 2, self.range[1] * 7 / 10, self.range[1] * 9 / 10)
-      mfs[self.memberships[4]] = (self.range[1] * 7 / 10, self.range[1] * 9 / 10, self.range[1])
+      mfs[self.memberships[0]] = (self.range[0], self.range[0], self.range[1] / 5)
+      mfs[self.memberships[1]] = (self.range[0], self.range[1] / 5, 2 * self.range[1] / 5)
+      mfs[self.memberships[2]] = (self.range[1] / 5, 2 * self.range[1] / 5, 3 * self.range[1] / 5)
+      mfs[self.memberships[3]] = (2 * self.range[1] / 5, 3 * self.range[1] / 5, 4 * self.range[1] / 5)
+      mfs[self.memberships[4]] = (3 * self.range[1] / 5, 4 * self.range[1] / 5, self.range[1])
     else:
       raise ValueError("This function supports either 3 or 5 memberships only")
 
@@ -26,10 +26,9 @@ class FuzzyVar:
 
   def compute_membership(self, mem, value):
     a, b, c = self.mfs[mem]
-    if (value < a): return 0
-    if (value > c): return 0
-    if (a <= value <= b): return (value - a) / (b - a)
-    if (b < value <= c): return (c - value) / (c - b)
+    if (value <= a) or (value >= c): return 0
+    if (a < value <= b): return (value - a) / (b - a)
+    if (b < value < c): return (c - value) / (c - b)
 
 
 # Input variables
