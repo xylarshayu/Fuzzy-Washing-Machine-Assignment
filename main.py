@@ -10,15 +10,15 @@ class FuzzyVar:
     mfs = {}
     
     if num_mem == 3:
-      mfs[self.memberships[0]] = (self.range[0], self.range[0], self.range[1] / 2)
+      mfs[self.memberships[0]] = (self.range[0], self.range[1]/4, self.range[1])
       mfs[self.memberships[1]] = (self.range[0], self.range[1] / 2, self.range[1])
-      mfs[self.memberships[2]] = (self.range[1] / 2, self.range[1], self.range[1])
+      mfs[self.memberships[2]] = (self.range[0], self.range[1]*(0.75), self.range[1])
     elif num_mem == 5:
-      mfs[self.memberships[0]] = (self.range[0], self.range[0], self.range[1] / 5)
-      mfs[self.memberships[1]] = (self.range[0], self.range[1] / 5, 2 * self.range[1] / 5)
-      mfs[self.memberships[2]] = (self.range[1] / 5, 2 * self.range[1] / 5, 3 * self.range[1] / 5)
-      mfs[self.memberships[3]] = (2 * self.range[1] / 5, 3 * self.range[1] / 5, 4 * self.range[1] / 5)
-      mfs[self.memberships[4]] = (3 * self.range[1] / 5, 4 * self.range[1] / 5, self.range[1])
+      mfs[self.memberships[0]] = (self.range[0], self.range[1]/10, 2*self.range[1]/10)
+      mfs[self.memberships[1]] = (self.range[1]/10, 3*self.range[1]/10, 4*self.range[1]/10)
+      mfs[self.memberships[2]] = (3*self.range[1]/10, self.range[1]/2, 6*self.range[1]/10)
+      mfs[self.memberships[3]] = (5*self.range[1]/10, 7*self.range[1]/10, 8*self.range[1]/10)
+      mfs[self.memberships[4]] = (7*self.range[1]/10, 9*self.range[1]/10, self.range[1])
     else:
       raise ValueError("This function supports either 3 or 5 memberships only")
 
@@ -49,7 +49,7 @@ def defuzzify(output_var, memberships):
   den = 0
   for mem in memberships:
     a, b, c = output_var.mfs[mem]
-    centroid = (a + b + c) / 3
+    centroid = b  # For triangular membership function
     num += memberships[mem] * centroid
     den += memberships[mem]
   return num / den if den != 0 else 0
